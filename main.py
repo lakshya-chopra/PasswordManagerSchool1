@@ -6,7 +6,7 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.tree import Tree
 from rich import print as print_
-from methods import add_data, retrieve_data, update_data, delete_record
+from methods import add_data, retrieve_data, update_data, delete_record, modify_password
 import password_gen
 import datetime
 from time import sleep
@@ -88,7 +88,7 @@ def menu(master_pass):
         print(checkImg)
         print(divider)
         user_cmd = print_(
-            """\n(a)dd profile | (r)etrieve data | (g)enerate password | (u)pdate records | (d)elete records| e(x)it\n"""
+            """\n(a)dd profile | (r)etrieve data | (g)enerate password | (u)pdate records | (d)elete records| (m)odify password | e(x)it\n"""
         )
         user_inp = input("What would you like to do? ")
         print()
@@ -99,6 +99,8 @@ def menu(master_pass):
             mail_id = input('Enter email id: ')
             username = input('Enter username: ')
             add_data(master_pass,site,site_url,mail_id,username)
+            print('Password safely locked')
+            print(lockImg)
         
         if user_inp == '(u)':
             print("Enter the username of the record which you would like to modify: ")
@@ -120,6 +122,20 @@ def menu(master_pass):
             yes_no = input('y/n: ')
             retrieve_data(master_pass,search_fields,True if yes_no.lower() == 'y' else False)
 
+        if user_inp == '(m)':
+            print('Enter the username of the record whose password you would like to modify: ')
+            user = input()
+            master_pass = input('Enter master password: ')
+
+            mp_hashed = hashlib.sha256(master_pass.encode()).hexdigest()
+
+            if mp_hashed == db.retrieve_mp():
+                modify_password(master_pass,user)
+            else:
+                print_('[Red][!]wrong master password') 
+            
+
+
         if user_inp == '(x)':
             break
         if user_inp == '(g)':
@@ -134,6 +150,7 @@ def menu(master_pass):
             print(password_gen.generate_password(chars))
             print_('[bold][green][+][/green]Success! Secure password generated')
             # console.log(f'[bold][red]Done!')
+
 
 
 def main():
@@ -195,5 +212,5 @@ def main():
 
 
 if __name__ == "__main__":
-    header()
+    print_(header())
     main()

@@ -1,4 +1,4 @@
-import tabnanny
+from doctest import master
 from rich.console import Console
 from rich import print as print_
 from rich.table import Table
@@ -8,7 +8,7 @@ from Crypto.Hash import SHA512
 from Crypto.Random import get_random_bytes
 from aesutil import encrypt,decrypt
 from database_manager import db_config, db_connector
-import base64
+from getpass import getpass
 
 console = Console()
 
@@ -58,8 +58,7 @@ def retrieve_data(mp,search_fields,decrypt_password=False):
         query = "Select {} from PasswordManager.passwords;".format(sf)
 
         cur.execute(query)
-        res = cur.fetchall() #tuple #all rows returned
-        res_lst = list(res)
+        res = list(cur.fetchall()) #tuple #all rows returned
 
         if len(res) == 0:
             print_('[yellow][-][/yellow] No results found')
@@ -71,24 +70,27 @@ def retrieve_data(mp,search_fields,decrypt_password=False):
             # if 'url' in search_fields:
             #     table.add_column('Url')
 
-            table.add_column("Website")
-            table.add_column("URL")
-            table.add_column("Email")
-            table.add_column("Username")
-            table.add_column("Password")
+            
+            table.add_column("Website",justify="right", style="green")
+            table.add_column("URL",justify="right", style="magenta")
+            table.add_column("Email",justify="right", style="cyan")
+            table.add_column("Username",justify="right", style='green')
+            table.add_column("Password",justify="right", style="turquoise2")
 
-
-            print(res_lst)
-            n = len(res[0]) #num of elems in all the records
+            n = len(res[0]) #num of elements in all the records
 
             if decrypt_password:
                 master_key = init_master_key(mp)
                 
-                for idx,i in enumerate(res_lst):
-                    res_lst[idx] = list(res_lst[idx])
-                    password = i[n-1]
+                for idx,i in enumerate(res):
+
+                    re = [x for x in i]
+
+                    password = re[n-1]
                     decrypted = decrypt(key=master_key,source=password,keyType='bytes')
                     i[n-1] = decrypted
+
+                    res[idx] = re #altering the tuple returned by cur object
 
             for idx,i in enumerate(res): #res -> rows
                 table.add_row(*res[idx])
@@ -128,7 +130,7 @@ def update_data(master_pass,username):
             inp = input()
             inp = inp.lower()
 
-            if inp in cur.column_names:
+            if inp in cur.column_names and inp != 'password':
                 print('Enter new value: ')
                 new_val = input()
 
@@ -166,9 +168,27 @@ def delete_record(mp,username):
     db.close()
     return 0
 
+
+def modify_password(mp,username):
+
+    db = db_connector()
+    cur = db.cursor()
+
+    cur.execute('Select * from PasswordManager.passwords where username = %s',(username,))
+    res = cur.fetchall()
+    
+    if len(res) == 0:
+        print('No record found!')
+    else:
+        print('Enter new password: ')
+        new_pass = getpass()
         
-                
-            
+        master_key = init_master_key(master_pass=mp)
+        encrypted_pass = encrypt(key=master_key,source=new_pass,keyType='bytes')
+
+        cur.execute('Update PasswordManager.passwords set password = %s where username = %s',(encrypted_pass,username))
+        print_('[green][+]Task accomplished successfully![/green]')
+
         
 
 
