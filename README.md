@@ -7,6 +7,8 @@
 - Additionally, I’ve made use of **SHA512** hashing algorithm for safely hashing the master password and PBKDF2 to derive a cryptographic key that will be used in encryption and decryption of the passwords.
 Encryption carried out using **AES256**.
 
+(Will add more relevant info later)
+
 ## Modules used:
    ### 3rd party 
     - Rich
@@ -20,4 +22,16 @@ Encryption carried out using **AES256**.
     - strings
     - secrets
 
-Credits to https://github.com/teja156/ for the aesutil.py file.
+## Output SCREENS:
+![image](https://github.com/lakshya-chopra/PasswordManagerSchool1/assets/77010972/0e347169-3b46-448a-a920-689ca2947af3)
+![image](https://github.com/lakshya-chopra/PasswordManagerSchool1/assets/77010972/db8825b2-b2e2-4721-9e27-a738aed62f83)
+
+![image](https://github.com/lakshya-chopra/PasswordManagerSchool1/assets/77010972/f352ec6a-dad1-4465-985c-49f1ac9a9b8b)
+
+![image](https://github.com/lakshya-chopra/PasswordManagerSchool1/assets/77010972/dd52508f-e567-49b5-8899-cadc68cd3180)
+
+
+
+
+*Credits to https://github.com/teja156/ for the aesutil.py file.*
+
