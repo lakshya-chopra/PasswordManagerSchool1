@@ -7,7 +7,7 @@ def db_config():
         db = mysql.connector.connect(
             host='localhost',
             user='root',
-            passwd='lakshyachopra27'
+            passwd='YOUR_PASSWORD_HERE'
         )
     except Exception as e:
         # Console.print_exception(show_locals=True)
@@ -16,7 +16,7 @@ def db_config():
     return db
 
 def db_connector():
-    db = mysql.connector.connect(host='localhost',user='root',passwd='lakshyachopra27',database='PasswordManager')
+    db = mysql.connector.connect(host='localhost',user='root',passwd='YOUR_PASSWORD_HERE',database='PasswordManager')
     return db
 
 def config(hashed_mp):
