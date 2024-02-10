@@ -33,7 +33,7 @@ Encryption carried out using **AES256**.
 ## Installation:  
    - Make sure you have MySQL server installed and a registered account. [Check the installation website](https://dev.mysql.com/doc/refman/5.7/en/installing.html)
    - Python version >= 3.7.0
-   - Install all the required modules mentioned above.
+   - Install all the required modules using `pip install -r requirements.txt`.
    - Replace the dummy passwd string in database connector with your own MySQL local account password. (See database_manager.py file)
    - Navigate to `src`, run main.py and start experimenting :) 💯.
 
