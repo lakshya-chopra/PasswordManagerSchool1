@@ -35,7 +35,7 @@ Encryption carried out using **AES256**.
    - Python version >= 3.7.0
    - Install all the required modules using `pip install -r requirements.txt`
    - Replace the dummy passwd string in database connector with your own MySQL local account password. (See database_manager.py file)
-   - Run main.py and start experimenting :) 💯.
+   - Navigate to `src`, run main.py and start experimenting :) 💯.
 
 *Credits to https://github.com/teja156/ for the aesutil.py file.*
 
