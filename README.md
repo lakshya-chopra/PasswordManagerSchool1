@@ -12,9 +12,8 @@ Encryption carried out using **AES256**.
 ## Modules used:
    ### 3rd party 
     - Rich
-    - PyCrypto
     - mysql-connector-python
-    - Pycryptodome
+    - PyCryptoDome
     
    ### Built-in 
     - getpass
@@ -31,7 +30,12 @@ Encryption carried out using **AES256**.
 ![image](https://github.com/lakshya-chopra/PasswordManagerSchool1/assets/77010972/dd52508f-e567-49b5-8899-cadc68cd3180)
 
 
-
+## Installation:  
+   - Make sure you have MySQL server installed and a registered account. [Check the installation website](https://dev.mysql.com/doc/refman/5.7/en/installing.html)
+   - Python version >= 3.7.0
+   - Install all the required modules using `pip install -r requirements.txt`
+   - Replace the dummy passwd string in database connector with your own MySQL local account password. (See database_manager.py file)
+   - Run main.py and start experimenting :) 💯.
 
 *Credits to https://github.com/teja156/ for the aesutil.py file.*
 
